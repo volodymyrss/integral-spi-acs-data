@@ -31,7 +31,13 @@ See the platform to access various INTEGRAL data:
 
 https://www.astro.unige.ch/cdci/astrooda_/
 
+## Additional data
 
+INTEGRAL ephemeries can be accessed here:
+
+https://www.isdc.unige.ch/~savchenk/spiacs-online/spiacs.pl?requeststring=2021-10-14T19%3A00%3A00&generate=ephs&submit=Submit
+
+Note that it is also possible to request predicted ephemeries, in the future. In this case, predicted orbit is used. Note that predicted attitude is also used for very recent data (hours before).
 
 # Extra Metadata
 
