@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7472097.svg)](https://doi.org/10.5281/zenodo.7472097)
+
 # Accesing INTEGRAL SPI-ACS Data 
 
 This note describes how to quickly access INTEGRAL SPI-ACS data (including calibrated timing) expressed in simple formats (such as CSV, SSV). 
