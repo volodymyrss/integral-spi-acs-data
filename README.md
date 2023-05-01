@@ -109,3 +109,5 @@ Realtime data served in [MMODA]() uses timing accuracy closer to that provided b
 | AKA | https://gitlab.unige.ch/Volodymyr.Savchenko/integral-spi-acs-data | 
 | AKA | https://gitlab.astro.unige.ch/savchenk/integral-spi-acs-data | 
 
+
+https://ui.adsabs.harvard.edu/abs/2003A%26A...411L..31K/abstract
