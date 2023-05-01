@@ -102,6 +102,12 @@ Realtime data served in [MMODA]() uses timing accuracy closer to that provided b
 * https://gcn.gsfc.nasa.gov/ipn/gcn_ipn_raw.html
 * GCN circulars are hand-written messages. Since SPI-ACS data does not on its own provide sufficient localization information, these messages are written for SPI-ACS observations only in the case of exceptional events when the mere fact of detection is important. 
 
+## INTEGRAL data readiness
+
+* **Realtime** - decoded immediately from the telemetry which is available with ~second latency. Used in IBAS. Actually available data also depends on each  kind of the telemetry packet, for example housekeeping packets with SPI-ACS data are produced every 8 seconds and the data is available with about 20 s delay.
+* **Near Real Time** - decoded from telemetry and stored in ScW version 000. Since telemetry can be interrupted, these data might be incomplete. Also the reconstruction is approximate due to lack of offline auxiliary information.
+* **Consolidated** - decoded from data recieved in separate offline channel, and are "as complete and they will ever be". These data are archived, and sometimes revised. Currently INTEGRAL archives in 3rd revision ("rev_3").
+
 ## Extra Metadata
 
 |  | |
