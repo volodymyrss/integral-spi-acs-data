@@ -45,9 +45,19 @@ INTEGRAL ephemeris can be obtained for any given time here
 
 The result is something like:
 
-`208.951 52.770 116867.9 `
+`208.951 52.770 116867.9`
 
 Where first two values are RA, Dec of INTEGRAL, and the last value is distance to the satellite in geocentric coordinate system.
+
+### INTEGRAL Spacecraft system service
+
+There is service making the barycenter calculation accessible in here (please check for yourself, please report any issues if found):
+
+For example, here is a request for information at the time used in the previous section, and using source coordinates identical to INTEGRAL GCS coordinates.
+
+`https://www.astro.unige.ch/mmoda/dispatch-data/gw/scsystem/api/v1.0/sc/2023-08-12T18:58:00/208.951/52.770`
+
+This results in `barytime: 0.3895597` which is easy to check.
 
 ### Timing accuracy
 
