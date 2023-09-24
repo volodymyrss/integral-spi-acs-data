@@ -59,6 +59,10 @@ For example, here is a request for information at the time used in the previous 
 
 This results in `barytime: 0.3895597` which is easy to check.
 
+### ii_light 
+
+If you have light curve in the right format you can https://www.isdc.unige.ch/integral/download/osa/doc/11.1/osa_um_ibis/node65.html
+
 ### Timing accuracy
 
 Frequently used reference for INTEGRAL timing accuracy is [Kuiper 2023](https://ui.adsabs.harvard.edu/abs/2003A%26A...411L..31K/abstract). More recent study is presented [here](https://iachec.org/wp-content/presentations/2018/Kuiper_SessionXI.pdf) presenting absolute timing of Crab pulsar for 15 years of the mission.
