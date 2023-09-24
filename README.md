@@ -28,6 +28,31 @@ $ curl 'https://www.isdc.unige.ch/~savchenk/spiacs-online/spiacs.pl?requeststrin
 
 All SPI-ACS data is public. The service provides the data as soon as it is decoded from the telemetry into the near-realtime [Science Window](https://heasarc.gsfc.nasa.gov/W3Browse/integral/intscwpub.html) data.
 
+## Absolute timing
+
+### Time system scale
+
+Time in SPI-ACS, as in the rest of the INTEGRAL data, is expressed in INTEGRAL Julian Day (IJD), as described in [here](https://www.isdc.unige.ch/integral/support/faq.cgi?DATA-007).
+**Please beware** that this time is expresse in Terrestrial Time (TT) and not in UTC. **It is a source of confusion** that for the same format (e.g. ISOT, MJD), the time scale is different. This scale difference depends on the current number of seconds, and as of 2023 accounts for `32.184 + 37` seconds.
+
+### INTEGRAL ephemeris
+
+It is often useful to derive time of the signal to some other place than INTEGRAL satellite, e.g. solar system barycenter, or Earth center. Time of light propagation between INTEGRAL and desired point depends on the coordinates source of the emission and INTEGRAL position (ephemeris).
+
+INTEGRAL ephemeris can be obtained for any given time here
+
+`https://www.isdc.unige.ch/~savchenk/spiacs-online/spiacs.pl?requeststring=2023-08-12T18%3A58%3A00&generate=ephs&submit=Submit` (an alternative is `https://www.astro.unige.ch/mmoda/dispatch-data/gw/integralhk/api/v1.0/ephs/2023-08-12T18:58:00`).
+
+The result is something like:
+
+`208.951 52.770 116867.9 `
+
+Where first two values are RA, Dec of INTEGRAL, and the last value is distance to the satellite in geocentric coordinate system.
+
+### Timing accuracy
+
+Frequently used reference for INTEGRAL timing accuracy is [Kuiper 2023](https://ui.adsabs.harvard.edu/abs/2003A%26A...411L..31K/abstract). More recent study is presented [here](https://iachec.org/wp-content/presentations/2018/Kuiper_SessionXI.pdf) presenting absolute timing of Crab pulsar for 15 years of the mission.
+
 ## In case of issues
 
 Consult [status page](https://status.reproducible.online/) for any announcements.
