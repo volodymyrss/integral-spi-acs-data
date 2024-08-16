@@ -5,6 +5,39 @@
 This note describes how to quickly access INTEGRAL SPI-ACS data (including calibrated timing) expressed in simple formats (such as CSV, SSV). 
 In addition access to satelite ephemeris is provided.
 
+
+## Accessing SPI-ACS data from MMODA
+
+INTEGRAL data, including SPI-ACS, as well as various added-value products from other instruments can be accessed through [MMODA platform](https://doi.org/10.1051/0004-6361/202037850):
+
+For quick visualization, interactive frontend is useful:
+
+https://www.astro.unige.ch/mmoda/
+
+It is also possible to use python API:
+
+```python
+from oda_api.api import DispatcherAPI
+
+d = DispatcherAPI(url='https://www.astro.unige.ch/mmoda/dispatch-data').get_product(
+    T1="2017-03-06T13:26:48.000",
+    T2="2017-03-06T15:32:27.000",
+    T_format="isot",
+    instrument="spi_acs",
+    product="spi_acs_lc",
+    product_type="Real",
+    time_bin=2.0,
+    time_bin_format="sec")
+    
+print(d.spi_acs_lc_0_query.data_unit[1].data)
+```
+
+The data is accompanied with an additonal comment in the start and the end of the current satellite orbit, setting boundaries of continious data taking. 
+
+### Realtime SPI-ACS data in MMODA
+
+Since XXXXX, MMODA also serves realtime SPI-ACS data with latency of about 20 seconds.
+
 ## Legacy IPN interface
 
 This interface was built for sharing SPI-ACS to the IPN and is operational [since 2011](https://doi.org/10.13097/archive-ouverte/unige:23133)
@@ -76,31 +109,6 @@ Contact me (the contact information should be shown on the page when the request
 
 https://www.isdc.unige.ch/integral/ibas/cgi-bin/ibas_acs_web.cgi
 
-## Accessing SPI-ACS data from MMODA
-
-INTEGRAL data, including SPI-ACS, as well as various added-value products from other instruments can be accessed through [MMODA platform](https://doi.org/10.1051/0004-6361/202037850):
-
-For quick visualization, interactive frontend is useful:
-
-https://www.astro.unige.ch/mmoda/
-
-It is also possible to use python API:
-
-```python
-from oda_api.api import DispatcherAPI
-
-d = DispatcherAPI(url='https://www.astro.unige.ch/mmoda/dispatch-data').get_product(
-    T1="2017-03-06T13:26:48.000",
-    T2="2017-03-06T15:32:27.000",
-    T_format="isot",
-    instrument="spi_acs",
-    product="spi_acs_lc",
-    product_type="Real",
-    time_bin=2.0,
-    time_bin_format="sec")
-    
-print(d.spi_acs_lc_0_query.data_unit[1].data)
-```
 
 ## Additional data
 
@@ -110,10 +118,40 @@ https://www.isdc.unige.ch/~savchenk/spiacs-online/spiacs.pl?requeststring=2021-1
 
 Note that it is also possible to request predicted ephemeries, in the future. In this case, predicted orbit is used. Note that predicted attitude is also used for very recent data (hours old).
 
-# Extra Metadata
+## SPI-ACS data timing and its accuracy
+
+### Time systems
+
+INTEGAL data typically uses INTEGRAL Julian Date (IJD) defined as JD-2 451 544.5 or MJD-51 544.0. It starts on January 1st, 2000, **but expressed in Terrestrial Time (TT) and not in UTC**. Since TT differs from UTC by 32.184 sec + 32 leap seconds at the start of year 2000, **the UTC origin of the IJD is actually 1999-12-31 T23:58:55.816**. For additional information see [ISDC FAQ](https://www.isdc.unige.ch/integral/support/faq.cgi?DATA-007) and [Systems of Time](http://tycho.usno.navy.mil/systime.html).
+
+### Timing accuracy
+
+INTEGRAL data is recorded with on-board clocks and stored in OBT (on-board time) format.
+INTEGRAL on-board clock is converted to other time systems through **time correlation tables**. These tables are generally available only with some delay following the data.
+
+Realtime data receipt uses an additional **realtime time correlation tables**. The data using these tables (for example, the data distributed in [INTEGRAL SPI-ACS notices](https://gcn.gsfc.nasa.gov/integral_spiacs.html)) have reduced timing accuracy.
+
+Realtime data served in [MMODA]() uses timing accuracy closer to that provided by the nominal **time correlation tables**. At this time, it is however advisable to re-check the timing accuracy once the near real-time data is available.
+
+
+## Alerts distibuted with INTEGRAL SPI-ACS data
+
+* https://gcn.gsfc.nasa.gov/integral_spiacs.html
+* https://gcn.gsfc.nasa.gov/ipn/gcn_ipn_raw.html
+* GCN circulars are hand-written messages. Since SPI-ACS data does not on its own provide sufficient localization information, these messages are written for SPI-ACS observations only in the case of exceptional events when the mere fact of detection is important. 
+
+## INTEGRAL data readiness
+
+* **Realtime** - decoded immediately from the telemetry which is available with ~second latency. Used in IBAS. Actually available data also depends on each  kind of the telemetry packet, for example housekeeping packets with SPI-ACS data are produced every 8 seconds and the data is available with about 20 s delay.
+* **Near Real Time** - decoded from telemetry and stored in ScW version 000. Since telemetry can be interrupted, these data might be incomplete. Also the reconstruction is approximate due to lack of offline auxiliary information.
+* **Consolidated** - decoded from data recieved in separate offline channel, and are "as complete and they will ever be". These data are archived, and sometimes revised. Currently INTEGRAL archives in 3rd revision ("rev_3").
+
+## Extra Metadata
 
 |  | |
 | --- | :-- |
 | AKA | https://gitlab.unige.ch/Volodymyr.Savchenko/integral-spi-acs-data | 
 | AKA | https://gitlab.astro.unige.ch/savchenk/integral-spi-acs-data | 
 
+
+https://ui.adsabs.harvard.edu/abs/2003A%26A...411L..31K/abstract
